@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="java2048bot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/java2048bot_jar</output-path>
+    <root id="archive" name="java2048bot.jar">
+      <element id="module-output" name="java2048bot" />
+    </root>
+  </artifact>
+</component>
