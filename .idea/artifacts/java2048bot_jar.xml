@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/java2048bot_jar</output-path>
     <root id="archive" name="java2048bot.jar">
       <element id="module-output" name="java2048bot" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/curses4j-1.1.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
