@@ -48,24 +48,24 @@ public class CursesColorInit {
         //call after initscr()
         start_color();
 
-        init_color_hex(COLOR_BACKGROUND_FG, "bbada0");
-        init_color_hex(COLOR_BACKGROUND_BG, "cdc1b4");
+        init_color_hex(COLOR_BACKGROUND_FG, "#bbada0");
+        init_color_hex(COLOR_BACKGROUND_BG, "#cdc1b4");
 
 
-        init_color_hex(COLOR_FG_2_4, "776e65");
-        init_color_hex(COLOR_FG_8, "f9f6f2");
-        init_color_hex(COLOR_BG_2, "eee4da");
-        init_color_hex(COLOR_BG_4, "ede0c8");
-        init_color_hex(COLOR_BG_8, "f2b179");
-        init_color_hex(COLOR_BG_16, "f59563");
-        init_color_hex(COLOR_BG_32, "f67c5f");
-        init_color_hex(COLOR_BG_64, "f65e3b");
-        init_color_hex(COLOR_BG_128, "edcf72");
-        init_color_hex(COLOR_BG_256, "edcc61");
-        init_color_hex(COLOR_BG_512, "edc850");
-        init_color_hex(COLOR_BG_1024, "edc53f");
-        init_color_hex(COLOR_BG_2048, "edc22e");
-        init_color_hex(COLOR_BG_4096, "3c3a32");
+        init_color_hex(COLOR_FG_2_4, "#776e65");
+        init_color_hex(COLOR_FG_8, "#f9f6f2");
+        init_color_hex(COLOR_BG_2, "#eee4da");
+        init_color_hex(COLOR_BG_4, "#ede0c8");
+        init_color_hex(COLOR_BG_8, "#f2b179");
+        init_color_hex(COLOR_BG_16, "#f59563");
+        init_color_hex(COLOR_BG_32, "#f67c5f");
+        init_color_hex(COLOR_BG_64, "#f65e3b");
+        init_color_hex(COLOR_BG_128, "#edcf72");
+        init_color_hex(COLOR_BG_256, "#edcc61");
+        init_color_hex(COLOR_BG_512, "#edc850");
+        init_color_hex(COLOR_BG_1024, "#edc53f");
+        init_color_hex(COLOR_BG_2048, "#edc22e");
+        init_color_hex(COLOR_BG_4096, "#3c3a32");
 
         init_pair(PAIR_BACKGROUND, COLOR_BACKGROUND_FG, COLOR_BACKGROUND_BG);
 
@@ -83,7 +83,7 @@ public class CursesColorInit {
         init_pair(PAIR_4096, COLOR_FG_8, COLOR_BG_4096);
 
     }
-    static int init_color_hex(short id, String color) {
+    private static int init_color_hex(short id, String color) {
         Color c = Color.decode(color);
         return init_color(id, (short) (c.getRed()*MAGIC_NUMBER), (short) (c.getGreen()*MAGIC_NUMBER), (short) (c.getBlue()*MAGIC_NUMBER));
     }

@@ -10,6 +10,7 @@ public class Util {
             return input;
         }
         int spaces = (length - input.length())/2;
-        return " ".repeat(spaces) +  input;
+        String out = " ".repeat(spaces) +  input;
+        return out + " ".repeat(length - out.length());
     }
 }

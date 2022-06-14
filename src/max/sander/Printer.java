@@ -19,7 +19,7 @@ public class Printer {
         screen = new PrinterScreen();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                screen.drawSquare(2+i*19, 1+j*10, 19+i*19, 10+j*10, '░', 30, 107, 1);
+                screen.drawSquare(2+i*19, 1+j*10, 19+i*19, 10+j*10, /*'░'*/'#', 30, 107, 1);
 
                 int number = field.getColumns()[i][j];
                 if (number != 0) {

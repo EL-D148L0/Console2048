@@ -8,19 +8,19 @@ import java.util.Map;
 public class PrinterInfo {
     static final Map<Integer, Styleset> NUMBER_STYLES = new HashMap<Integer, Styleset>();
     static {
-        NUMBER_STYLES.put(2, new Styleset(37, 47, 1, '░', 30));
-        NUMBER_STYLES.put(4, new Styleset(33, 47, 1, '░', 30));
-        NUMBER_STYLES.put(8, new Styleset(33, 41, 1, '▓', 37));
-        NUMBER_STYLES.put(16, new Styleset(33, 41, 0, '▓', 37));
-        NUMBER_STYLES.put(32, new Styleset(31, 47, 0, '▒', 37));
-        NUMBER_STYLES.put(64, new Styleset(31, 47, 0, '▓', 37));
-        NUMBER_STYLES.put(128, new Styleset(33, 47, 0, '▒', 37));
-        NUMBER_STYLES.put(256, new Styleset(33, 43, 1, '▓', 37));
-        NUMBER_STYLES.put(512, new Styleset(33, 43, 1, '▓', 37));
-        NUMBER_STYLES.put(1024, new Styleset(33, 43, 1, '▓', 37));
-        NUMBER_STYLES.put(2048, new Styleset(33, 43, 1, '▓', 37));
+        NUMBER_STYLES.put(2, new Styleset(37, 47, 1, /*'░'*/'#', 30));
+        NUMBER_STYLES.put(4, new Styleset(33, 47, 1, /*'░'*/'#', 30));
+        NUMBER_STYLES.put(8, new Styleset(33, 41, 1, /*'▓'*/'#', 37));
+        NUMBER_STYLES.put(16, new Styleset(33, 41, 0, /*'▓'*/'#', 37));
+        NUMBER_STYLES.put(32, new Styleset(31, 47, 0, /*'▒'*/'#', 37));
+        NUMBER_STYLES.put(64, new Styleset(31, 47, 0, /*'▓'*/'#', 37));
+        NUMBER_STYLES.put(128, new Styleset(33, 47, 0, /*'▒'*/'#', 37));
+        NUMBER_STYLES.put(256, new Styleset(33, 43, 1, /*'▓'*/'#', /**/37));
+        NUMBER_STYLES.put(512, new Styleset(33, 43, 1, /*'▓'*/'#', 37));
+        NUMBER_STYLES.put(1024, new Styleset(33, 43, 1, /*'▓'*/'#', 37));
+        NUMBER_STYLES.put(2048, new Styleset(33, 43, 1, /*'▓'*/'#', 37));
     }
-    static final Styleset NUMBER_OVER_2048_STYLE = new Styleset(30, 40, 0, '█', 37);
+    static final Styleset NUMBER_OVER_2048_STYLE = new Styleset(30, 40, 0, /*'█'*/'#', 37);
     static final Styleset NUMBER_EMPTY_STYLE = new Styleset(30, 47, 1, '░');
     static final Map<Integer, String> NUMBER_GRAPHICS = new HashMap<Integer, String>();
     static {
@@ -141,6 +141,7 @@ public class PrinterInfo {
             █████████   ▝▜████▛▘        ███   ▝▜████▛▘\040\040
                          
                          -- in console--""";
+
     static final int OUTPUT_HEIGHT = 41;
     static final int OUTPUT_WIDTH = 78;
     static final int OUTPUT_MAX_Y = OUTPUT_HEIGHT - 1;
