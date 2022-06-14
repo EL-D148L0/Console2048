@@ -18,9 +18,8 @@ public class CursesColorInit {
     static final int PAIR_512 = 11;
     static final int PAIR_1024 = 12;
     static final int PAIR_2048 = 13;
-
-    /*static final int PAIR_ = 14;
-    static final int PAIR_ = 15;
+    static final int PAIR_4096 = 14;
+    /*static final int PAIR_ = 15;
     static final int PAIR_ = 16;
     static final int PAIR_ = 17;
     static final int PAIR_ = 18;
@@ -69,6 +68,19 @@ public class CursesColorInit {
         init_color_hex(COLOR_BG_4096, "3c3a32");
 
         init_pair(PAIR_BACKGROUND, COLOR_BACKGROUND_FG, COLOR_BACKGROUND_BG);
+
+        init_pair(PAIR_2, COLOR_FG_2_4, COLOR_BG_2);
+        init_pair(PAIR_4, COLOR_FG_2_4, COLOR_BG_4);
+        init_pair(PAIR_8, COLOR_FG_8, COLOR_BG_8);
+        init_pair(PAIR_16, COLOR_FG_8, COLOR_BG_16);
+        init_pair(PAIR_32, COLOR_FG_8, COLOR_BG_32);
+        init_pair(PAIR_64, COLOR_FG_8, COLOR_BG_64);
+        init_pair(PAIR_128, COLOR_FG_8, COLOR_BG_128);
+        init_pair(PAIR_256, COLOR_FG_8, COLOR_BG_256);
+        init_pair(PAIR_512, COLOR_FG_8, COLOR_BG_512);
+        init_pair(PAIR_1024, COLOR_FG_8, COLOR_BG_1024);
+        init_pair(PAIR_2048, COLOR_FG_8, COLOR_BG_2048);
+        init_pair(PAIR_4096, COLOR_FG_8, COLOR_BG_4096);
 
     }
     static int init_color_hex(short id, String color) {
