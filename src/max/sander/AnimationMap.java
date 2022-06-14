@@ -16,6 +16,7 @@ public class AnimationMap {
         //Board tempBoard = board;
         if (direction == Constants.DIR_UP) {
             int[][] rows = startBoard.getRows();
+            int[][] rowsNoAdd = startBoard.getRows();
             for (int x = 0; x < 4; x++) {
                 for (int y = 1; y < 4; y++) {
                     int currentNumber = rows[y][x];
@@ -24,19 +25,23 @@ public class AnimationMap {
                     }
                     int finalPos = y;
                     for (int y2 = y - 1; y2 > -1; y2--) {
-                        if (rows[y2][x] == 0) {
+                        if (rowsNoAdd[y2][x] == 0) {
                             finalPos = y2;
                             continue;
                         }
-                        if (rows[y2][x] == currentNumber) {
+                        if (rowsNoAdd[y2][x] == currentNumber) {
                             finalPos = y2;
                             rows[y2][x] = currentNumber * 2;
                             rows[y][x] = 0;
+                            rowsNoAdd[y2][x] = -1;
+                            rowsNoAdd[y][x] = 0;
                             break;
                         }
                         if (finalPos != y) {
                             rows[y][x] = 0;
                             rows[finalPos][x] = currentNumber;
+                            rowsNoAdd[y][x] = 0;
+                            rowsNoAdd[finalPos][x] = currentNumber;
                         }
                         break;
                     }

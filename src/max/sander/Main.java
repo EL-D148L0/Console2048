@@ -11,9 +11,16 @@ public class Main {
 	// write your code here
 
         Printer printer = new Printer();
-        Board board = new Board(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 0, 0);
+        int[][] rows = new int[][] {
+                {2, 0, 0, 0},
+                {2, 0, 0, 0},
+                {2, 0, 0, 0},
+                {2, 0, 0, 0}    };
+        Board board = Board.boardFromRows(rows);
+//        Board board = new Board(2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 0, 0);
 //        Board board = new Board(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        printer.drawGame(board);
+        
+//        printer.drawGame(board);
 //        printer.screen.print();
 //        System.out.println();
 
@@ -21,9 +28,16 @@ public class Main {
 
         //cursesPrinter.drawBackground(0, 1);
         cursesPrinter.drawField(0, 0, board);
-
-
-
+        
+        refresh();
+        getch();
+        Board endboard = null;
+        for (int i = 1; i < 12; i++) {
+            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 12, board, Constants.DIR_UP);
+            refresh();
+            getch();
+        }
+        cursesPrinter.drawField(0, 0, endboard);
         refresh();
         getch();
 

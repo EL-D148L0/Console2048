@@ -28,9 +28,29 @@ public class CursesPrinter {
         }
 
     }
-    void drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, Board board, int direction) {
+    Board drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, Board board, int direction) {
         //layer them in the opposite direction of movement
         AnimationMap animationMap = new AnimationMap(board, direction);
+        drawBackground(x, y);
+        int[][] rows = board.getRows();
+        if (direction == Constants.DIR_UP) {
+            for (int yb = 3; yb > -1; yb--) {
+                for (int xb = 0; xb < 4; xb++) {
+                    double yAdd = 0;
+                    double xAdd = 0;
+                    if (animationMap.map[yb][xb][0] != -1) {
+                        yAdd = animationMap.map[yb][xb][1] - yb;
+                        xAdd = animationMap.map[yb][xb][0] - xb;
+
+                        yAdd *= ((double) frameNumber / (double)framesTotal);
+                        xAdd *= ((double) frameNumber / (double)framesTotal);
+
+                    }
+                    drawTile((int) (x+2+(xb + xAdd)*19), (int) (y+ 1 +(yb + yAdd)*10), rows[yb][xb]);
+                }
+            }
+        }
+        return animationMap.endBoard;
 
     }
     private void drawTile(int x, int y, int number) {
