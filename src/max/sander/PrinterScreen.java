@@ -12,7 +12,8 @@ public class PrinterScreen {
         }
     }
 
-    public void print() {
+
+    public String getScreenString() {
         StringBuilder lineToPrint = new StringBuilder();
         for (String[] line: this.screen) {
             for (String character: line) {
@@ -20,8 +21,13 @@ public class PrinterScreen {
             }
             lineToPrint.append("\n");
         }
-        System.out.println(lineToPrint);
+        return lineToPrint.toString();
+    };
+    public void print() {
+        System.out.println(getScreenString());
     }
+
+
 
     public void drawSquare(int x1, int y1, int x2, int y2, char letter, int foregroundColor, int backgroundColor, int style) {
         for (int y = y1; y < y2; y++) {
