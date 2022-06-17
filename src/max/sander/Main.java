@@ -33,7 +33,7 @@ public class Main {
         getch();
         Board endboard = null;
         for (int i = 1; i < 7; i++) {
-            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, Constants.DIR_UP);
+            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, Constants.DIR_DOWN);
             refresh();
 
 //            getch();

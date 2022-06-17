@@ -42,6 +42,10 @@ public class Board {
     public int[][] getRows() {
         return new int[][] {{r0c0, r0c1, r0c2, r0c3}, {r1c0, r1c1, r1c2, r1c3}, {r2c0, r2c1, r2c2, r2c3}, {r3c0, r3c1, r3c2, r3c3}};
     }
+    public Board invertRows() {
+        int[][] oldRows = this.getRows();
+        return boardFromRows(new int[][] {oldRows[3], oldRows[2], oldRows[1], oldRows[0]});
+    }
     public static Board boardFromRows(int[][] rows){
         return new Board(rows[0][0], rows[0][1], rows[0][2], rows[0][3], rows[1][0], rows[1][1], rows[1][2], rows[1][3], rows[2][0], rows[2][1], rows[2][2], rows[2][3], rows[3][0], rows[3][1], rows[3][2], rows[3][3]);
     }
