@@ -33,26 +33,38 @@ public class CursesPrinter {
         AnimationMap animationMap = new AnimationMap(board, direction);
         drawBackground(x, y);
         int[][] rows = board.getRows();
-        if (direction == Constants.DIR_UP) {
+        if (direction == Constants.DIR_UP || direction == Constants.DIR_RIGHT) {
             for (int yb = 3; yb > -1; yb--) {
                 for (int xb = 0; xb < 4; xb++) {
-                    double yAdd = 0;
-                    double xAdd = 0;
-                    if (animationMap.map[yb][xb][0] != -1) {
-                        yAdd = animationMap.map[yb][xb][1] - yb;
-                        xAdd = animationMap.map[yb][xb][0] - xb;
-
-                        yAdd *= ((double) frameNumber / (double)framesTotal);
-                        xAdd *= ((double) frameNumber / (double)framesTotal);
-
-                    }
-                    drawTile((int) (x+2+(xb + xAdd)*19), (int) (y+ 1 +(yb + yAdd)*10), rows[yb][xb]);
+                    drawTileFromAnimationMap(x, y, (double) frameNumber, (double) framesTotal, animationMap, rows, yb, xb);
+                }
+            }
+        } else if (direction == Constants.DIR_DOWN || direction == Constants.DIR_LEFT) {
+            for (int yb = 0; yb < 4; yb++) {
+                for (int xb = 3; xb > -1; xb--) {
+                    drawTileFromAnimationMap(x, y, (double) frameNumber, (double) framesTotal, animationMap, rows, yb, xb);
                 }
             }
         }
         return animationMap.endBoard;
 
     }
+
+    private void drawTileFromAnimationMap(int x, int y, double frameNumber, double framesTotal, AnimationMap animationMap, int[][] rows, int yb, int xb) {
+        //this is a seperate function to avoid me writing some code twice
+        double yAdd = 0;
+        double xAdd = 0;
+        if (animationMap.map[yb][xb][0] != -1) {
+            yAdd = animationMap.map[yb][xb][1] - yb;
+            xAdd = animationMap.map[yb][xb][0] - xb;
+
+            yAdd *= (frameNumber / framesTotal);
+            xAdd *= (frameNumber / framesTotal);
+
+        }
+        drawTile((int) (x +2+(xb + xAdd)*19), (int) (y + 1 +(yb + yAdd)*10), rows[yb][xb]);
+    }
+
     private void drawTile(int x, int y, int number) {
         if (number != 0) {
             int colorPair = CursesColorInit.PAIR_4096;

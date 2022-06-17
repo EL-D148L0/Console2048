@@ -1,5 +1,7 @@
 package max.sander;
 
+import java.util.Arrays;
+
 public class AnimationMap {
     Board startBoard;
     Board endBoard;
@@ -24,6 +26,7 @@ public class AnimationMap {
                         continue;
                     }
                     int finalPos = y;
+                    boolean added = false;
                     for (int y2 = y - 1; y2 > -1; y2--) {
                         if (rowsNoAdd[y2][x] == 0) {
                             finalPos = y2;
@@ -35,19 +38,23 @@ public class AnimationMap {
                             rows[y][x] = 0;
                             rowsNoAdd[y2][x] = -1;
                             rowsNoAdd[y][x] = 0;
+                            added = true;
                             break;
                         }
-                        if (finalPos != y) {
-                            rows[y][x] = 0;
-                            rows[finalPos][x] = currentNumber;
-                            rowsNoAdd[y][x] = 0;
-                            rowsNoAdd[finalPos][x] = currentNumber;
-                        }
+
                         break;
-                    }
+                    }/*
                     if (finalPos != y) {
                         map[y][x] = new int[] {x, finalPos};
+                    }*/
+                    if (finalPos != y && !added) {
+                        rows[y][x] = 0;
+                        rows[finalPos][x] = currentNumber;
+                        rowsNoAdd[y][x] = 0;
+                        rowsNoAdd[finalPos][x] = currentNumber;
                     }
+                    map[y][x] = new int[] {x, finalPos};
+                    //System.out.println(Arrays.deepToString(rows));
                 }
             }
             this.endBoard = Board.boardFromRows(rows);
