@@ -54,7 +54,7 @@ public class CursesPrinter {
         //this is a seperate function to avoid me writing some code twice
         double yAdd = 0;
         double xAdd = 0;
-        if (animationMap.map[yb][xb][0] != -1) {
+        if (animationMap.map[yb][xb][0] != -1 && animationMap.map[yb][xb][0] != 4) {
             yAdd = animationMap.map[yb][xb][1] - yb;
             xAdd = animationMap.map[yb][xb][0] - xb;
 
