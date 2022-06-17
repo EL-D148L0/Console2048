@@ -22,6 +22,9 @@ public class AnimationMap {
         if (direction == Constants.DIR_RIGHT) {
             this.startBoard = this.startBoard.rotate().rotate().rotate();
         }
+        if (direction == Constants.DIR_LEFT) {
+            this.startBoard = this.startBoard.rotate();
+        }
         int[][] rows = startBoard.getRows();
         int[][] rowsNoAdd = startBoard.getRows();
         for (int x = 0; x < 4; x++) {
@@ -73,6 +76,11 @@ public class AnimationMap {
             this.startBoard = this.startBoard.rotate();
             this.endBoard = this.endBoard.rotate();
             this.map = rotateMap(map);
+        }
+        if (direction == Constants.DIR_LEFT) {
+            this.startBoard = this.startBoard.rotate().rotate().rotate();
+            this.endBoard = this.endBoard.rotate().rotate().rotate();
+            this.map = rotateMap(rotateMap(rotateMap(map)));
         }
     }
     private static int[][][] invertMapY(int[][][] mapIn) {

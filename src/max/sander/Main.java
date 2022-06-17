@@ -12,7 +12,7 @@ public class Main {
 
         Printer printer = new Printer();
         int[][] rows = new int[][] {
-                {2, 2, 0, 0},
+                {2, 2, 2, 2},
                 {2, 0, 0, 2},
                 {0, 16, 0, 0},
                 {128, 0, 2, 2}    };
@@ -33,7 +33,7 @@ public class Main {
         getch();
         Board endboard = null;
         for (int i = 1; i < 7; i++) {
-            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, Constants.DIR_RIGHT);
+            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, Constants.DIR_LEFT);
             refresh();
 
             getch();
