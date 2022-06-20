@@ -18,6 +18,12 @@ public class CursesPrinter {
             drawStringNoLinebreak(x, y + i, strings[i]);
         }
     }
+    void drawStringSkipChar(int x, int y, String str, char skipChar) {
+        String[] strings = str.split("\n");
+        for (int i = 0; i < strings.length; i++) {
+            drawStringNoLinebreakSkipChar(x, y + i, strings[i], skipChar);
+        }
+    }
     void drawField(int x, int y, Board board) {
         drawBackground(x, y);
         int[][] rows = board.getRows();
@@ -28,21 +34,91 @@ public class CursesPrinter {
         }
 
     }
-    Board drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, Board board, int direction) {
+    Board drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, Board board, AnimationMap animationMap) {
         //layer them in the opposite direction of movement
-        AnimationMap animationMap = new AnimationMap(board, direction);
         drawBackground(x, y);
         int[][] rows = board.getRows();
-        if (direction == Constants.DIR_UP || direction == Constants.DIR_RIGHT) {
+        if (animationMap.direction == Constants.DIR_UP || animationMap.direction == Constants.DIR_RIGHT) {
             for (int yb = 3; yb > -1; yb--) {
                 for (int xb = 0; xb < 4; xb++) {
                     drawTileFromAnimationMap(x, y, (double) frameNumber, (double) framesTotal, animationMap, rows, yb, xb);
                 }
             }
-        } else if (direction == Constants.DIR_DOWN || direction == Constants.DIR_LEFT) {
+        } else if (animationMap.direction == Constants.DIR_DOWN || animationMap.direction == Constants.DIR_LEFT) {
             for (int yb = 0; yb < 4; yb++) {
                 for (int xb = 3; xb > -1; xb--) {
                     drawTileFromAnimationMap(x, y, (double) frameNumber, (double) framesTotal, animationMap, rows, yb, xb);
+                }
+            }
+        }
+        if (frameNumber == framesTotal) {
+            int pairDynamicCurrent = CursesColorInit.PAIR_DYNAMIC_START;
+            int[][] endRows = animationMap.endBoard.getRows();
+            for (int yb = 0; yb < 4; yb++) {
+                for (int xb = 0; xb < 4; xb++) {
+                    if (animationMap.newNumberMap[yb][xb] != -1) {
+                        drawTile(x+2+xb*19, y+ 1 +yb*10, endRows[yb][xb]);
+                        if (animationMap.newNumberMap[yb][xb] == Constants.ANIM_SPAWN) {
+                            int number = endRows[yb][xb];
+                            short fgColor = CursesColorInit.COLOR_BG_4096;
+                            if (CursesPrinterInfo.NUMBER_BG_COLORS.containsKey(number)) {
+                                fgColor = CursesPrinterInfo.NUMBER_BG_COLORS.get(number);
+                            }
+                            short bgColor = CursesColorInit.COLOR_BACKGROUND_BG;
+                            init_pair(pairDynamicCurrent, fgColor, bgColor);
+                            attrset(COLOR_PAIR(pairDynamicCurrent));
+                            drawStringSkipChar(x+2+xb*19, y+ 1 +yb*10, CursesPrinterInfo.SPAWN_ANIM_FRAME, '#');
+                            pairDynamicCurrent += 1;
+                        }
+
+                        if (animationMap.newNumberMap[yb][xb] == Constants.ANIM_MERGE) {
+                            int number = endRows[yb][xb];
+                            //top logic
+                            short fgColor = CursesColorInit.COLOR_BG_4096;
+                            if (CursesPrinterInfo.NUMBER_BG_COLORS.containsKey(number)) {
+                                fgColor = CursesPrinterInfo.NUMBER_BG_COLORS.get(number);
+                            }
+                            boolean mergedNumberAbove = false;
+                            if (yb != 0) {
+                                if (animationMap.newNumberMap[yb - 1][xb] == Constants.ANIM_MERGE) {
+                                    mergedNumberAbove = true; //dont draw since it was already drawn
+                                }
+                            }
+                            short bgColor = CursesColorInit.COLOR_BACKGROUND_FG;
+                            if (!mergedNumberAbove) {
+                                init_pair(pairDynamicCurrent, fgColor, bgColor);
+                                attrset(COLOR_PAIR(pairDynamicCurrent));
+                                pairDynamicCurrent += 1;
+                                drawStringSkipChar((x + 2 + xb * 19) - 1, (y + 1 + yb * 10) - 1, CursesPrinterInfo.MERGE_ANIM_FRAME_TOP, '#');
+                            }
+                            //side logic
+                            int colorPair = CursesColorInit.PAIR_4096;
+                            if (CursesPrinterInfo.NUMBER_COLOR_PAIRS.containsKey(number)) {
+                                colorPair = CursesPrinterInfo.NUMBER_COLOR_PAIRS.get(number);
+                            }
+                            attrset(COLOR_PAIR(colorPair));
+                            drawStringSkipChar((x+2+xb*19) - 1, (y+ 1 +yb*10), CursesPrinterInfo.MERGE_ANIM_FRAME_SIDES, '#');
+                            //bottom logic
+                            int mergedNumberBelow = 0;
+                            if (yb != 3) {
+                                if (animationMap.newNumberMap[yb + 1][xb] == Constants.ANIM_MERGE) {
+                                    mergedNumberBelow = endRows[yb + 1][xb];
+                                }
+                            }
+                            bgColor = CursesColorInit.COLOR_BACKGROUND_FG;
+                            if (mergedNumberBelow != 0) {
+                                bgColor = CursesColorInit.COLOR_BG_4096;
+                                if (CursesPrinterInfo.NUMBER_BG_COLORS.containsKey(mergedNumberBelow)) {
+                                    bgColor = CursesPrinterInfo.NUMBER_BG_COLORS.get(mergedNumberBelow);
+                                }
+                            }
+                            init_pair(pairDynamicCurrent, fgColor, bgColor);
+                            attrset(COLOR_PAIR(pairDynamicCurrent));
+                            pairDynamicCurrent += 1;
+                            drawStringSkipChar((x+2+xb*19) - 1, (y+ 1 +yb*10) + 9, CursesPrinterInfo.MERGE_ANIM_FRAME_BOTTOM, '#');
+                        }
+
+                    }
                 }
             }
         }
@@ -85,10 +161,23 @@ public class CursesPrinter {
     }
     private void drawStringNoLinebreak(int x, int y, String str) {
         //dont feed \n into this
+
         for (int i = 0; i < str.length(); i++) {
             move(y, x+i);
             delch();
             insch(str.charAt(i));
+        }
+
+    }
+    private void drawStringNoLinebreakSkipChar(int x, int y, String str, char skipChar) {
+        //dont feed \n into this
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != skipChar) {
+                move(y, x+i);
+                delch();
+                insch(str.charAt(i));
+            }
         }
 
     }

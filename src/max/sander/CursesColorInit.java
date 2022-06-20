@@ -1,6 +1,8 @@
 package max.sander;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.webfolder.curses4j.Curses.*;
 
@@ -25,6 +27,7 @@ public class CursesColorInit {
     static final int PAIR_ = 18;
     static final int PAIR_ = 19;
     static final int PAIR_ = 20;*/
+    static final int PAIR_DYNAMIC_START = 21;
 
     private static final double MAGIC_NUMBER = 1000D/255D;
     public static final short COLOR_BACKGROUND_FG = (short) 301;
@@ -43,6 +46,8 @@ public class CursesColorInit {
     public static final short COLOR_BG_1024 = (short) 314;
     public static final short COLOR_BG_2048 = (short) 315;
     public static final short COLOR_BG_4096 = (short) 316;
+
+    static final Map<Integer, Integer> NUMBER_COLOR_PAIRS = new HashMap<Integer, Integer>();
 
     public static void init() {
         //call after initscr()

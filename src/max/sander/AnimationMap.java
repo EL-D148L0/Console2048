@@ -6,9 +6,16 @@ public class AnimationMap {
     Board startBoard;
     Board endBoard;
     int[][][] map;
+    int[][] newNumberMap;
+    int direction;
 
     public AnimationMap(Board board, int direction) {
-
+        this.direction = direction;
+        this.newNumberMap = new int[][] { // map[y][x][xy]
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1}    };
         this.map = new int[][][] { // map[y][x][xy]
                 {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}},
                 {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}},
@@ -16,6 +23,10 @@ public class AnimationMap {
                 {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}}    };
         this.startBoard = board;
         //Board tempBoard = board;
+        if (direction == Constants.DIR_NONE) {
+            this.endBoard = board;
+            return;
+        }
         if (direction == Constants.DIR_DOWN) {
             this.startBoard = this.startBoard.invertRows();
         }
@@ -41,8 +52,10 @@ public class AnimationMap {
                         continue;
                     }
                     if (rowsNoAdd[y2][x] == currentNumber) {
+                        //merge
                         finalPos = y2;
                         rows[y2][x] = currentNumber * 2;
+                        newNumberMap[y2][x] = Constants.ANIM_MERGE;
                         rows[y][x] = 0;
                         rowsNoAdd[y2][x] = -1;
                         rowsNoAdd[y][x] = 0;
@@ -71,16 +84,19 @@ public class AnimationMap {
             this.startBoard = this.startBoard.invertRows();
             this.endBoard = this.endBoard.invertRows();
             this.map = invertMapY(this.map);
+            this.newNumberMap = Board.boardFromRows(newNumberMap).invertRows().getRows();
         }
         if (direction == Constants.DIR_RIGHT) {
             this.startBoard = this.startBoard.rotate();
             this.endBoard = this.endBoard.rotate();
             this.map = rotateMap(map);
+            this.newNumberMap = Board.boardFromRows(newNumberMap).rotate().getRows();
         }
         if (direction == Constants.DIR_LEFT) {
             this.startBoard = this.startBoard.rotate().rotate().rotate();
             this.endBoard = this.endBoard.rotate().rotate().rotate();
             this.map = rotateMap(rotateMap(rotateMap(map)));
+            this.newNumberMap = Board.boardFromRows(newNumberMap).rotate().rotate().rotate().getRows();
         }
     }
     private static int[][][] invertMapY(int[][][] mapIn) {
@@ -94,23 +110,23 @@ public class AnimationMap {
         return newMap;
     }
     private static int[][][] rotateMap(int[][][] mapIn) {
-        int[][][] newMap = new int[][][] {
+        return new int[][][] {
                 {{3 - mapIn[3][0][1],mapIn[3][0][0]},{3 - mapIn[2][0][1],mapIn[2][0][0]},{3 - mapIn[1][0][1],mapIn[1][0][0]},{3 - mapIn[0][0][1],mapIn[0][0][0]}},
                 {{3 - mapIn[3][1][1],mapIn[3][1][0]},{3 - mapIn[2][1][1],mapIn[2][1][0]},{3 - mapIn[1][1][1],mapIn[1][1][0]},{3 - mapIn[0][1][1],mapIn[0][1][0]}},
                 {{3 - mapIn[3][2][1],mapIn[3][2][0]},{3 - mapIn[2][2][1],mapIn[2][2][0]},{3 - mapIn[1][2][1],mapIn[1][2][0]},{3 - mapIn[0][2][1],mapIn[0][2][0]}},
                 {{3 - mapIn[3][3][1],mapIn[3][3][0]},{3 - mapIn[2][3][1],mapIn[2][3][0]},{3 - mapIn[1][3][1],mapIn[1][3][0]},{3 - mapIn[0][3][1],mapIn[0][3][0]}}  };
-
-        //int[][][] TempMap = newMap.clone();
-/*
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
-                newMap[y][x][1] = 3 - newMap[y][x][1];
-            }
-        }*/
-        return newMap;
     }
     public int[][][] getRows() {
         return map;
+    }
+    public void spawnNumber(int[] numberInfo) {
+        int x = numberInfo[0];
+        int y = numberInfo[1];
+        int number = numberInfo[2];
+        int[][] rows = endBoard.getRows();
+        rows[y][x] = number;
+        this.endBoard = Board.boardFromRows(rows);
+        newNumberMap[y][x] = Constants.ANIM_SPAWN;
     }
 
     /*public int[][] getColumns() {

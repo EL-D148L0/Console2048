@@ -20,6 +20,42 @@ public class CursesPrinterInfo {
         NUMBER_COLOR_PAIRS.put(1024,  CursesColorInit.PAIR_1024);
         NUMBER_COLOR_PAIRS.put(2048,  CursesColorInit.PAIR_2048);
     }
+    static final Map<Integer, Short> NUMBER_BG_COLORS = new HashMap<Integer, Short>();
+    static {
+        NUMBER_BG_COLORS.put(2, CursesColorInit.COLOR_BG_2);
+        NUMBER_BG_COLORS.put(4,  CursesColorInit.COLOR_BG_4);
+        NUMBER_BG_COLORS.put(8,  CursesColorInit.COLOR_BG_8);
+        NUMBER_BG_COLORS.put(16,  CursesColorInit.COLOR_BG_16);
+        NUMBER_BG_COLORS.put(32,  CursesColorInit.COLOR_BG_32);
+        NUMBER_BG_COLORS.put(64,  CursesColorInit.COLOR_BG_64);
+        NUMBER_BG_COLORS.put(128,  CursesColorInit.COLOR_BG_128);
+        NUMBER_BG_COLORS.put(256,  CursesColorInit.COLOR_BG_256);
+        NUMBER_BG_COLORS.put(512,  CursesColorInit.COLOR_BG_512);
+        NUMBER_BG_COLORS.put(1024,  CursesColorInit.COLOR_BG_1024);
+        NUMBER_BG_COLORS.put(2048,  CursesColorInit.COLOR_BG_2048);
+        NUMBER_BG_COLORS.put(4096,  CursesColorInit.COLOR_BG_4096);
+    }
+    public static final String MERGE_ANIM_FRAME_TOP = "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄";
+    public static final String MERGE_ANIM_FRAME_SIDES = " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# \n" +
+            " ################# ";
+    public static final String MERGE_ANIM_FRAME_BOTTOM = "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀";
+
+    public static final String SPAWN_ANIM_FRAME = " ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ############### \n" +
+            " ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ";
     public static final String BACKGROUND = """
             ██████████████████████████████████████████████████████████████████████████████
             ██                 ██                 ██                 ██                 ██
