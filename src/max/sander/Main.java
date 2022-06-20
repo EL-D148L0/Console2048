@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 
-        Printer printer = new Printer();
+//        Printer printer = new Printer();
         int[][] rows = new int[][] {
                 {4, 2, 8, 2},
                 {4, 0, 8, 2},
@@ -21,25 +21,36 @@ public class Main {
 //        printer.screen.print();
 //        System.out.println();
 
-        CursesPrinter cursesPrinter = new CursesPrinter();
+        CursesPrinter.init();
 
         //cursesPrinter.drawBackground(0, 1);
-        cursesPrinter.drawField(0, 0, board);
-        
+//        CursesPrinter.drawField(0, 0, board);
+        Game game = new Game();
+        CursesPrinter.drawField(0, 0, game.board);
         refresh();
         getch();
+        game.tryGameTurn(game.startGameMove());
+//        getch();
+
+        while (!game.lost) {
+            int ch = getch();
+            game.tryGameTurn(Util.getchToDir(ch));
+        }
+
+
+        /*
         Board endboard = null;
         AnimationMap animationMap = new AnimationMap(board, Constants.DIR_UP);
         animationMap.spawnNumber(new int[] {3, 3, 4});
         for (int i = 1; i <= 7; i++) {
-            endboard = cursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, animationMap);
+            endboard = CursesPrinter.drawAnimatedFrame(0, 0, i, 7, board, animationMap);
             refresh();
 
             getch();
 //            napms(15);
         }
         napms(45);
-        cursesPrinter.drawField(0, 0, endboard);
+        CursesPrinter.drawField(0, 0, endboard);*/
         refresh();
         getch();
 

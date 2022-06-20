@@ -1,5 +1,7 @@
 package max.sander;
 
+import java.util.Objects;
+
 public class Board {
     int r0c0;
     int r0c1;
@@ -39,6 +41,28 @@ public class Board {
         this.r3c2 = r3c2;
         this.r3c3 = r3c3;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return r0c0 == board.r0c0 && r0c1 == board.r0c1 && r0c2 == board.r0c2 && r0c3 == board.r0c3 && r1c0 == board.r1c0 && r1c1 == board.r1c1 && r1c2 == board.r1c2 && r1c3 == board.r1c3 && r2c0 == board.r2c0 && r2c1 == board.r2c1 && r2c2 == board.r2c2 && r2c3 == board.r2c3 && r3c0 == board.r3c0 && r3c1 == board.r3c1 && r3c2 == board.r3c2 && r3c3 == board.r3c3;
+    }
+    public int countFreeTiles() {
+        int count = 0;
+        int[][] rows = this.getRows();
+        for (int[] row: rows) {
+            for (int number: row) {
+                if (number == 0) {
+                    count += 1;
+                }
+            }
+        }
+        return count;
+    }
+
+
     public int[][] getRows() {
         return new int[][] {{r0c0, r0c1, r0c2, r0c3}, {r1c0, r1c1, r1c2, r1c3}, {r2c0, r2c1, r2c2, r2c3}, {r3c0, r3c1, r3c2, r3c3}};
     }

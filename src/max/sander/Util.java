@@ -13,4 +13,20 @@ public class Util {
         String out = " ".repeat(spaces) +  input;
         return out + " ".repeat(length - out.length());
     }
+    public static int getchToDir(int ch) {
+        if (ch == 119 || ch == 87) {
+            return Constants.DIR_UP;
+        }
+        if (ch == 97 || ch == 65) {
+            return Constants.DIR_LEFT;
+        }
+        if (ch == 115 || ch == 83) {
+            return Constants.DIR_DOWN;
+        }
+        if (ch == 100 || ch == 68) {
+            return Constants.DIR_RIGHT;
+        }
+        return Constants.DIR_NONE;
+    }
+
 }

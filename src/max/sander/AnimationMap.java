@@ -8,6 +8,7 @@ public class AnimationMap {
     int[][][] map;
     int[][] newNumberMap;
     int direction;
+    boolean emptyMove = false;//must be externally set, doesnt get set automatically
 
     public AnimationMap(Board board, int direction) {
         this.direction = direction;

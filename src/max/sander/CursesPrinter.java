@@ -4,27 +4,27 @@ import static io.webfolder.curses4j.Curses.*;
 
 public class CursesPrinter {
 
-    public CursesPrinter() {
+    public static void init() {
         initscr();
         CursesColorInit.init();
     }
-    private void drawBackground(int x, int y) {
+    private static void drawBackground(int x, int y) {
         attrset(COLOR_PAIR(CursesColorInit.PAIR_BACKGROUND));
         drawString(x, y, CursesPrinterInfo.BACKGROUND);
     }
-    void drawString(int x, int y, String str) {
+    static void drawString(int x, int y, String str) {
         String[] strings = str.split("\n");
         for (int i = 0; i < strings.length; i++) {
             drawStringNoLinebreak(x, y + i, strings[i]);
         }
     }
-    void drawStringSkipChar(int x, int y, String str, char skipChar) {
+    static void drawStringSkipChar(int x, int y, String str, char skipChar) {
         String[] strings = str.split("\n");
         for (int i = 0; i < strings.length; i++) {
             drawStringNoLinebreakSkipChar(x, y + i, strings[i], skipChar);
         }
     }
-    void drawField(int x, int y, Board board) {
+    static void drawField(int x, int y, Board board) {
         drawBackground(x, y);
         int[][] rows = board.getRows();
         for (int yb = 0; yb < 4; yb++) {
@@ -34,11 +34,11 @@ public class CursesPrinter {
         }
 
     }
-    Board drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, Board board, AnimationMap animationMap) {
+    static Board drawAnimatedFrame(int x, int y, int frameNumber, int framesTotal, AnimationMap animationMap) {
         //layer them in the opposite direction of movement
         drawBackground(x, y);
-        int[][] rows = board.getRows();
-        if (animationMap.direction == Constants.DIR_UP || animationMap.direction == Constants.DIR_RIGHT) {
+        int[][] rows = animationMap.startBoard.getRows();
+        if (animationMap.direction == Constants.DIR_UP || animationMap.direction == Constants.DIR_RIGHT || animationMap.direction == Constants.DIR_NONE) {
             for (int yb = 3; yb > -1; yb--) {
                 for (int xb = 0; xb < 4; xb++) {
                     drawTileFromAnimationMap(x, y, (double) frameNumber, (double) framesTotal, animationMap, rows, yb, xb);
@@ -126,7 +126,7 @@ public class CursesPrinter {
 
     }
 
-    private void drawTileFromAnimationMap(int x, int y, double frameNumber, double framesTotal, AnimationMap animationMap, int[][] rows, int yb, int xb) {
+    private static void drawTileFromAnimationMap(int x, int y, double frameNumber, double framesTotal, AnimationMap animationMap, int[][] rows, int yb, int xb) {
         //this is a seperate function to avoid me writing some code twice
         double yAdd = 0;
         double xAdd = 0;
@@ -141,7 +141,7 @@ public class CursesPrinter {
         drawTile((int) (x +2+(xb + xAdd)*19), (int) (y + 1 +(yb + yAdd)*10), rows[yb][xb]);
     }
 
-    private void drawTile(int x, int y, int number) {
+    private static void drawTile(int x, int y, int number) {
         if (number != 0) {
             int colorPair = CursesColorInit.PAIR_4096;
             if (CursesPrinterInfo.NUMBER_COLOR_PAIRS.containsKey(number)) {
@@ -159,7 +159,7 @@ public class CursesPrinter {
         }
 
     }
-    private void drawStringNoLinebreak(int x, int y, String str) {
+    private static void drawStringNoLinebreak(int x, int y, String str) {
         //dont feed \n into this
 
         for (int i = 0; i < str.length(); i++) {
@@ -169,7 +169,7 @@ public class CursesPrinter {
         }
 
     }
-    private void drawStringNoLinebreakSkipChar(int x, int y, String str, char skipChar) {
+    private static void drawStringNoLinebreakSkipChar(int x, int y, String str, char skipChar) {
         //dont feed \n into this
 
         for (int i = 0; i < str.length(); i++) {
