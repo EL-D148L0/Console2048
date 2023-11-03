@@ -14,7 +14,7 @@ public class Game {
         lost = false;
     }
     public Game() {
-        this.board = new Board(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        this.board = new Board();
         lost = false;
     }
 
@@ -35,7 +35,7 @@ public class Game {
         if (dir == Constants.DIR_NONE) return;
         tryGameTurn(move(dir));
     }
-    public void tryGameTurn(AnimationMap animationMap) {
+    private void tryGameTurn(AnimationMap animationMap) {
         if (animationMap.emptyMove) return;
         if (animationMap.direction != Constants.DIR_NONE) {
             try {
@@ -46,7 +46,11 @@ public class Game {
         }
         playAnimationMap(animationMap);
     }
-    public AnimationMap startGameMove() {
+
+    public void startGame() {
+        tryGameTurn(startGameMove());
+    }
+    private AnimationMap startGameMove() {
         AnimationMap animationMap = new AnimationMap(board, Constants.DIR_NONE);
         try {
             animationMap.spawnNumber(getNewTile(animationMap.endBoard));
@@ -56,7 +60,7 @@ public class Game {
         }
         return animationMap;
     }
-    public AnimationMap move(int dir) {
+    private AnimationMap move(int dir) {
         // does not set new tiles
         AnimationMap animationMap = new AnimationMap(board, dir);
         if (board.equals(animationMap.endBoard)) {
