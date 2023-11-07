@@ -51,6 +51,12 @@ public class Board {
         if (direction == Constants.DIR_RIGHT) return moveRight();
         return this;
     }
+    public boolean canMove(int direction) {
+        return this != move(direction);
+    }
+    public boolean canMove() {
+        return canMove(Constants.DIR_UP) && canMove(Constants.DIR_LEFT) && canMove(Constants.DIR_RIGHT)&& canMove(Constants.DIR_DOWN);
+    }
     private Board moveUp() {
         byte[] column0 = listToArray(mergeNumbersInList(makeByteListIgnoringZeroes(r0c0, r1c0, r2c0, r3c0)));
         byte[] column1 = listToArray(mergeNumbersInList(makeByteListIgnoringZeroes(r0c1, r1c1, r2c1, r3c1)));
