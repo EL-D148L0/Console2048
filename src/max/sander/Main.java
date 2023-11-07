@@ -39,14 +39,17 @@ public class Main {
         boolean done = false;
         while (!done) {
             int ch = Curses.getch();
-            if (ch == 81 || ch == 113) done = true;
-            Board newBoard = board.move(Util.getchToDir(ch));
+            if (ch == 81 || ch == 113) break;
+            Solver solver = new Solver(board);
+            int move = solver.next();
+            solver.destroyTree();
+            Board newBoard = board.move(move);
             if (!newBoard.equals(board)) {
                 board = newBoard;
 
                 LinkedList<BoardPosition> freePositions = board.getFreePositions();
                 BoardPosition newTile = freePositions.get(random.nextInt(freePositions.size()));
-                newTile.setValue((random.nextDouble() < 0.1) ? 4 : 2);
+                newTile.setValue((random.nextDouble() < Constants.CHANCE_FOR_4) ? 4 : 2);
                 board = board.setTile(newTile);
             }
             if (!board.canMove()) done = true;
