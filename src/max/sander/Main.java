@@ -22,7 +22,12 @@ public class Main {
                 {8, 16, 512, 32},
                 {4, 2, 4, 4}    };
 
-        Board board = Board.boardFromRows(rows);
+        int[][] rows3 = new int[][] {
+                {0, 0, 0, 0},
+                {0, 2, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}    };
+        Board board = Board.boardFromRows(rows3);
         Board board2 = Board.boardFromRows(rows);
         //board = new Board();
 //        System.out.println(board.equals(board2));
