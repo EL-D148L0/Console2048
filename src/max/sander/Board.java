@@ -52,7 +52,7 @@ public class Board {
         return this;
     }
     public boolean canMove(int direction) {
-        return this != move(direction);
+        return !this.equals(move(direction));
     }
     public boolean canMove() {
         return canMove(Constants.DIR_UP) && canMove(Constants.DIR_LEFT) && canMove(Constants.DIR_RIGHT)&& canMove(Constants.DIR_DOWN);

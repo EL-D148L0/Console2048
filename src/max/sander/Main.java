@@ -13,7 +13,15 @@ public class Main {
                 {4, 0, 8, 2},
                 {4, 16, 16, 2},
                 {128, 0, 16, 2}    };
-        Board board = Board.boardFromRows(rows);
+
+        int[][] rows2 = new int[][] {
+                {4, 2, 8, 2},
+                {2, 4, 2, 16},
+                {4, 2, 16, 2},
+                {2, 16, 8, 2}    };
+        Board board = Board.boardFromRows(rows2);
+        Board board2 = Board.boardFromRows(rows);
+//        System.out.println(board.equals(board2));
         Random random = new Random();
         CursesPrinter.init();
 
@@ -33,16 +41,16 @@ public class Main {
             int ch = Curses.getch();
             if (ch == 81 || ch == 113) done = true;
             Board newBoard = board.move(Util.getchToDir(ch));
-            if (newBoard != board) {
+            if (!newBoard.equals(board)) {
                 board = newBoard;
-                if (board.hasFreeTiles()) {
 
-                    LinkedList<BoardPosition> freePositions = board.getFreePositions();
-                    BoardPosition newTile = freePositions.get(random.nextInt(freePositions.size()));
-                    newTile.setValue((random.nextDouble() < 0.1) ? 4 : 2);
-                    board = board.setTile(newTile);
-                }
+                LinkedList<BoardPosition> freePositions = board.getFreePositions();
+                BoardPosition newTile = freePositions.get(random.nextInt(freePositions.size()));
+                newTile.setValue((random.nextDouble() < 0.1) ? 4 : 2);
+                board = board.setTile(newTile);
             }
+            if (!board.canMove()) done = true;
+            //System.out.println(board.canMove());
             CursesPrinter.drawField(0, 0, board);
 
             Curses.refresh();
