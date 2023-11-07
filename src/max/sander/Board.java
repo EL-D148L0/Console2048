@@ -1,11 +1,9 @@
 package max.sander;
 
-import java.util.Objects;
-
 public class Board {
-    int r0c0, r0c1, r0c2, r0c3, r1c0, r1c1, r1c2, r1c3, r2c0, r2c1, r2c2, r2c3, r3c0, r3c1, r3c2, r3c3;
+    byte r0c0, r0c1, r0c2, r0c3, r1c0, r1c1, r1c2, r1c3, r2c0, r2c1, r2c2, r2c3, r3c0, r3c1, r3c2, r3c3 = 0;
 
-    private Board(int r0c0, int r0c1, int r0c2, int r0c3, int r1c0, int r1c1, int r1c2, int r1c3, int r2c0, int r2c1, int r2c2, int r2c3, int r3c0, int r3c1, int r3c2, int r3c3) {
+    private Board(byte r0c0, byte r0c1, byte r0c2, byte r0c3, byte r1c0, byte r1c1, byte r1c2, byte r1c3, byte r2c0, byte r2c1, byte r2c2, byte r2c3, byte r3c0, byte r3c1, byte r3c2, byte r3c3) {
         this.r0c0 = r0c0;
         this.r0c1 = r0c1;
         this.r0c2 = r0c2;
@@ -23,8 +21,8 @@ public class Board {
         this.r3c2 = r3c2;
         this.r3c3 = r3c3;
     }
+    
     public Board() {
-        this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -52,20 +50,44 @@ public class Board {
 
 
     public int[][] getRows() {
-        return new int[][] {{r0c0, r0c1, r0c2, r0c3}, {r1c0, r1c1, r1c2, r1c3}, {r2c0, r2c1, r2c2, r2c3}, {r3c0, r3c1, r3c2, r3c3}};
+        return new int[][] {{toIntValue(r0c0), toIntValue(r0c1), toIntValue(r0c2), toIntValue(r0c3)}, {toIntValue(r1c0), toIntValue(r1c1), toIntValue(r1c2), toIntValue(r1c3)}, {toIntValue(r2c0), toIntValue(r2c1), toIntValue(r2c2), toIntValue(r2c3)}, {toIntValue(r3c0), toIntValue(r3c1), toIntValue(r3c2), toIntValue(r3c3)}};
     }
-    public Board rotate() {
-        return boardFromRows(this.invertRows().getColumns());
+    private static int toIntValue(byte b) {
+        if (b == 0) return 0;
+        return (int) Math.pow(2, b);
+    }
+    private static byte toByteValue(int i) {
+        if (i == 0) return 0;
+        return (byte) (int) (Math.log(i)/Math.log(2));
+    }
+
+    public Board rotateRight() {
+        return new Board(
+                r3c0, r2c0, r1c0, r0c0,
+                r3c1, r2c1, r1c1, r0c1,
+                r3c2, r2c2, r1c2, r0c2,
+                r3c3, r2c3, r1c3, r0c3);
+    }
+
+    public Board rotateLeft() {
+        return new Board(
+                r0c3, r1c3, r2c3, r3c3,
+                r0c2, r1c2, r2c2, r3c2,
+                r0c1, r1c1, r2c1, r3c1,
+                r0c0, r1c0, r2c0, r3c0);
     }
     public Board invertRows() {
-        int[][] oldRows = this.getRows();
-        return boardFromRows(new int[][] {oldRows[3], oldRows[2], oldRows[1], oldRows[0]});
+        return new Board(
+                r3c0, r3c1, r3c2, r3c3,
+                r2c0, r2c1, r2c2, r2c3,
+                r1c0, r1c1, r1c2, r1c3,
+                r0c0, r0c1, r0c2, r0c3);
     }
     public static Board boardFromRows(int[][] rows){
-        return new Board(rows[0][0], rows[0][1], rows[0][2], rows[0][3], rows[1][0], rows[1][1], rows[1][2], rows[1][3], rows[2][0], rows[2][1], rows[2][2], rows[2][3], rows[3][0], rows[3][1], rows[3][2], rows[3][3]);
+        return new Board(toByteValue(rows[0][0]), toByteValue(rows[0][1]), toByteValue(rows[0][2]), toByteValue(rows[0][3]), toByteValue(rows[1][0]), toByteValue(rows[1][1]), toByteValue(rows[1][2]), toByteValue(rows[1][3]), toByteValue(rows[2][0]), toByteValue(rows[2][1]), toByteValue(rows[2][2]), toByteValue(rows[2][3]), toByteValue(rows[3][0]), toByteValue(rows[3][1]), toByteValue(rows[3][2]), toByteValue(rows[3][3]));
     }
     public int[][] getColumns() {
-        return new int[][] {{r0c0, r1c0, r2c0, r3c0}, {r0c1, r1c1, r2c1, r3c1}, {r0c2, r1c2, r2c2, r3c2}, {r0c3, r1c3, r2c3, r3c3}};
+        return new int[][] {{toIntValue(r0c0), toIntValue(r1c0), toIntValue(r2c0), toIntValue(r3c0)}, {toIntValue(r0c1), toIntValue(r1c1), toIntValue(r2c1), toIntValue(r3c1)}, {toIntValue(r0c2), toIntValue(r1c2), toIntValue(r2c2), toIntValue(r3c2)}, {toIntValue(r0c3), toIntValue(r1c3), toIntValue(r2c3), toIntValue(r3c3)}};
     }
 
 }

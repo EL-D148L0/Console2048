@@ -1,7 +1,5 @@
 package max.sander;
 
-import java.util.Arrays;
-
 public class AnimationMap {
     Board startBoard;
     Board endBoard;
@@ -32,10 +30,10 @@ public class AnimationMap {
             this.startBoard = this.startBoard.invertRows();
         }
         if (direction == Constants.DIR_RIGHT) {
-            this.startBoard = this.startBoard.rotate().rotate().rotate();
+            this.startBoard = this.startBoard.rotateLeft();
         }
         if (direction == Constants.DIR_LEFT) {
-            this.startBoard = this.startBoard.rotate();
+            this.startBoard = this.startBoard.rotateRight();
         }
         int[][] rows = startBoard.getRows();
         int[][] rowsNoAdd = startBoard.getRows();
@@ -88,16 +86,16 @@ public class AnimationMap {
             this.newNumberMap = Board.boardFromRows(newNumberMap).invertRows().getRows();
         }
         if (direction == Constants.DIR_RIGHT) {
-            this.startBoard = this.startBoard.rotate();
-            this.endBoard = this.endBoard.rotate();
+            this.startBoard = this.startBoard.rotateRight();
+            this.endBoard = this.endBoard.rotateRight();
             this.map = rotateMap(map);
-            this.newNumberMap = Board.boardFromRows(newNumberMap).rotate().getRows();
+            this.newNumberMap = Board.boardFromRows(newNumberMap).rotateRight().getRows();
         }
         if (direction == Constants.DIR_LEFT) {
-            this.startBoard = this.startBoard.rotate().rotate().rotate();
-            this.endBoard = this.endBoard.rotate().rotate().rotate();
+            this.startBoard = this.startBoard.rotateLeft();
+            this.endBoard = this.endBoard.rotateLeft();
             this.map = rotateMap(rotateMap(rotateMap(map)));
-            this.newNumberMap = Board.boardFromRows(newNumberMap).rotate().rotate().rotate().getRows();
+            this.newNumberMap = Board.boardFromRows(newNumberMap).rotateLeft().getRows();
         }
     }
     private static int[][][] invertMapY(int[][][] mapIn) {
