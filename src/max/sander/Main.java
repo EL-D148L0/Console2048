@@ -2,8 +2,10 @@ package max.sander;
 
 import io.webfolder.curses4j.Curses;
 
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Timer;
 
 public class Main {
 
@@ -37,12 +39,20 @@ public class Main {
             game.tryGameTurn(Util.getchToDir(ch));
         }*/
         boolean done = false;
+        int counter = 0;
         while (!done) {
-            int ch = Curses.getch();
-            if (ch == 81 || ch == 113) break;
+            /*if (counter <1) {
+                counter = 10;
+                int ch = Curses.getch();
+                if (ch == 81 || ch == 113) break;
+            }
+            counter--;*/
             Solver solver = new Solver(board);
             int move = solver.next();
             solver.destroyTree();
+            System.out.println(move);
+            System.out.println(board);
+            if (move == Constants.DIR_NONE) break;
             Board newBoard = board.move(move);
             if (!newBoard.equals(board)) {
                 board = newBoard;
@@ -57,6 +67,11 @@ public class Main {
             CursesPrinter.drawField(0, 0, board);
 
             Curses.refresh();
+            /*try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }*/
         }
 
 

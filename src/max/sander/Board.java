@@ -1,5 +1,6 @@
 package max.sander;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Board {
@@ -135,6 +136,14 @@ public class Board {
             }
         }
         return list;
+    }
+
+    @Override
+    public String toString() {
+        int[][] rows = getRows();
+        String out = String.format("%s%n%s%n%s%n%s", Arrays.toString(rows[0]), Arrays.toString(rows[1]), Arrays.toString(rows[2]), Arrays.toString(rows[3]));
+
+        return out;
     }
 
     public Board setTile(BoardPosition boardPosition) {

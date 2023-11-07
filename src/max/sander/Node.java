@@ -98,13 +98,12 @@ public class Node {
         children.clear();
     }
     public void destroyThisAndAllChildren() {
-        if (parent != null) {
-            parent.children.remove(this);
-            parent = null;
+        parent = null;
+        if (children != null) {
+            children.forEach(child -> {child.parent = null;});
+            children.forEach(Node::destroyThisAndAllChildren);
+            children.clear();
         }
-        children.forEach(child -> {child.parent = null;});
-        children.forEach(Node::destroyThisAndAllChildren);
-        children.clear();
     }
 
 }
