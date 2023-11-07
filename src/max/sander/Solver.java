@@ -1,6 +1,7 @@
 package max.sander;
 
 import java.security.PublicKey;
+import java.util.LinkedList;
 
 public class Solver {
     public static int searchDepth = 6;
@@ -10,7 +11,8 @@ public class Solver {
     }
     public int next() {
         int out = Constants.DIR_NONE;
-        double weight = Double.MIN_VALUE;
+        double weight = -10000;
+        LinkedList<Thread> ThreadList = new LinkedList<>();
         for (Node node :
                 start.moves()) {
             double expectimax = node.expectimax();

@@ -9,6 +9,9 @@ public class Node {
     double chance;
     LinkedList<Node> children;
     int playerMove;
+    Boolean canMove;
+
+    double expectimaxResult;
     public Node(Board state) {
         this.state = state;
         this.playerTurn = true;
@@ -19,7 +22,9 @@ public class Node {
         this.playerTurn = playerTurn;
         this.playerMove = playerMove;
     }
-
+    public void expectimaxSave() {
+        expectimaxResult = expectimax();
+    }
     private Node(Board state, Node parent, boolean playerTurn, double chance) {
         this.state = state;
         this.parent = parent;
@@ -41,11 +46,22 @@ public class Node {
         return out;
     }
     private double expectimaxPlayer() {
-        double out = Double.MIN_VALUE;
+        double out = -10000;
         for (Node child :
                 moves()) {
             out = Math.max(out, child.expectimax());
+
+
         }
+        if (out == -10000){
+            System.out.println("BOINGSAWDAD");
+            System.out.println(this);
+            System.out.println(moves().size());
+            System.out.println(state.canMove());
+            System.out.println(terminal());
+            //System.out.println(state);
+        }
+
         return out;
     }
     public LinkedList<Node> moves() {
@@ -79,10 +95,17 @@ public class Node {
         }
     }
     public double utility() {
+        if (!lazyGetCanMove()) return -10;
         return state.countFreeTiles();
     }
     public boolean terminal() {
-        return depth() >= Solver.searchDepth && state.canMove();
+        return depth() >= Solver.searchDepth || !lazyGetCanMove();
+    }
+    private boolean lazyGetCanMove() {
+        if (canMove == null) {
+            canMove = state.canMove();
+        }
+        return canMove;
     }
     public int depth() {
         if (parent == null) {

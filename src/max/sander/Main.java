@@ -17,12 +17,14 @@ public class Main {
                 {128, 0, 16, 2}    };
 
         int[][] rows2 = new int[][] {
-                {4, 2, 8, 2},
-                {2, 4, 2, 16},
-                {4, 2, 16, 2},
-                {2, 16, 8, 2}    };
+                {8, 16, 8, 32},
+                {64, 128, 1024, 8},
+                {8, 16, 512, 32},
+                {4, 2, 4, 4}    };
+
         Board board = Board.boardFromRows(rows);
         Board board2 = Board.boardFromRows(rows);
+        //board = new Board();
 //        System.out.println(board.equals(board2));
         Random random = new Random();
         CursesPrinter.init();
