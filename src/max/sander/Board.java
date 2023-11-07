@@ -55,7 +55,7 @@ public class Board {
         return !this.equals(move(direction));
     }
     public boolean canMove() {
-        return canMove(Constants.DIR_UP) && canMove(Constants.DIR_LEFT) && canMove(Constants.DIR_RIGHT)&& canMove(Constants.DIR_DOWN);
+        return canMove(Constants.DIR_UP) || canMove(Constants.DIR_LEFT) || canMove(Constants.DIR_RIGHT) || canMove(Constants.DIR_DOWN);
     }
     private Board moveUp() {
         byte[] column0 = listToArray(mergeNumbersInList(makeByteListIgnoringZeroes(r0c0, r1c0, r2c0, r3c0)));

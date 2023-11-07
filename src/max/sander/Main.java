@@ -19,7 +19,7 @@ public class Main {
                 {2, 4, 2, 16},
                 {4, 2, 16, 2},
                 {2, 16, 8, 2}    };
-        Board board = Board.boardFromRows(rows2);
+        Board board = Board.boardFromRows(rows);
         Board board2 = Board.boardFromRows(rows);
 //        System.out.println(board.equals(board2));
         Random random = new Random();
