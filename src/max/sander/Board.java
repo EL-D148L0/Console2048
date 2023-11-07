@@ -40,6 +40,9 @@ public class Board {
     public int countFreeTiles() {
         return getFreePositions().size();
     }
+    public boolean hasFreeTiles() {
+        return countFreeTiles()>0;
+    }
 
     public Board move(int direction) {
         if (direction == Constants.DIR_UP) return moveUp();
