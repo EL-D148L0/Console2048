@@ -34,8 +34,9 @@ public class Solver {
                 node.expectimaxSave();
             }
         }
+        LinkedList<Node> startMoves = start.moves();
         for (Node node :
-                start.moves()) {
+                startMoves) {
             threadList.add(new Thread(new ComputeTask(node)));
 
         }
@@ -48,7 +49,7 @@ public class Solver {
             throw new RuntimeException(e);
         }
         for (Node node :
-                start.moves()) {
+                startMoves) {
             if (weight < node.expectimaxResult) {
                 weight =  node.expectimaxResult;
                 out = node.playerMove;
@@ -57,9 +58,9 @@ public class Solver {
         }
         return out;
     }
-    public void destroyTree() {
+    /*public void destroyTree() {
         start.destroyThisAndAllChildren();
         start = null;
-    }
+    }*/
 
 }

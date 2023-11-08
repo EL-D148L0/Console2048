@@ -59,7 +59,7 @@ public class Main {
             aiTimer.start();
             Solver solver = new Solver(board);
             int move = solver.next();
-            solver.destroyTree();
+            //solver.destroyTree();
             aiTimer.stop();
             System.out.println(move);
             System.out.println(board);
