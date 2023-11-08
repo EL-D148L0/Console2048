@@ -5,7 +5,6 @@ import io.webfolder.curses4j.Curses;
 import java.sql.Time;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Timer;
 
 public class Main {
 
@@ -47,6 +46,9 @@ public class Main {
         }*/
         boolean done = false;
         int counter = 0;
+        Timer aiTimer = new Timer();
+        Timer allTimer = new Timer();
+        allTimer.start();
         while (!done) {
             /*if (counter <1) {
                 counter = 10;
@@ -54,9 +56,11 @@ public class Main {
                 if (ch == 81 || ch == 113) break;
             }
             counter--;*/
+            aiTimer.start();
             Solver solver = new Solver(board);
             int move = solver.next();
             solver.destroyTree();
+            aiTimer.stop();
             System.out.println(move);
             System.out.println(board);
             if (move == Constants.DIR_NONE) break;
@@ -81,6 +85,8 @@ public class Main {
                 throw new RuntimeException(e);
             }*/
         }
+        allTimer.stop();
+        System.out.printf("time total: %d %n time ai: %d%n fraction ai: %f %n", allTimer.getTimeMilliseconds(), aiTimer.getTimeMilliseconds(), ((double) aiTimer.getTimeMilliseconds())/ (double) allTimer.getTimeMilliseconds());
 
 
         Curses.refresh();

@@ -32,6 +32,7 @@ public class Node {
         this.chance = chance;
     }
 
+
     public double expectimax() {
         if (terminal()) return utility();
         if (playerTurn) return expectimaxPlayer();
@@ -95,8 +96,8 @@ public class Node {
         }
     }
     public double utility() {
-        if (!lazyGetCanMove()) return -10;
-        return state.countFreeTiles();
+        if (!lazyGetCanMove()) return -1000;
+        return state.score;
     }
     public boolean terminal() {
         return depth() >= Solver.searchDepth || !lazyGetCanMove();
