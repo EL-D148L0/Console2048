@@ -72,6 +72,7 @@ public class Main {
             if (!board.canMove()) done = true;
             //System.out.println(board.canMove());
             CursesPrinter.drawField(0, 0, board);
+            CursesPrinter.drawString(0,0, String.valueOf(board.score));
 
             Curses.refresh();
             /*try {
