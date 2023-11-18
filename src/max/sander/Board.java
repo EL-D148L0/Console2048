@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Board {
-    byte r0c0, r0c1, r0c2, r0c3, r1c0, r1c1, r1c2, r1c3, r2c0, r2c1, r2c2, r2c3, r3c0, r3c1, r3c2, r3c3 = 0;
+    final byte r0c0, r0c1, r0c2, r0c3, r1c0, r1c1, r1c2, r1c3, r2c0, r2c1, r2c2, r2c3, r3c0, r3c1, r3c2, r3c3;
     int score = 0;    
 
     private Board(byte r0c0, byte r0c1, byte r0c2, byte r0c3, byte r1c0, byte r1c1, byte r1c2, byte r1c3, byte r2c0, byte r2c1, byte r2c2, byte r2c3, byte r3c0, byte r3c1, byte r3c2, byte r3c3, int score) {
@@ -28,6 +28,22 @@ public class Board {
     }
     
     public Board() {
+        this.r0c0 =0;
+        this.r0c1 =0;
+        this.r0c2 =0;
+        this.r0c3 =0;
+        this.r1c0 =0;
+        this.r1c1 =0;
+        this.r1c2 =0;
+        this.r1c3 =0;
+        this.r2c0 =0;
+        this.r2c1 =0;
+        this.r2c2 =0;
+        this.r2c3 =0;
+        this.r3c0 =0;
+        this.r3c1 =0;
+        this.r3c2 =0;
+        this.r3c3 =0;
     }
    
     @Override

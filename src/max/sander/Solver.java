@@ -9,9 +9,9 @@ public class Solver {
     public Solver(Board board) {
         int freeSpace = board.countFreeTiles();
         if (freeSpace < 3) {
-            searchDepth = 9;
+            searchDepth = 10;
         } else if (freeSpace < 6) {
-            searchDepth = 7;
+            searchDepth = 9;
         } else if (freeSpace < 12) {
             searchDepth = 6;
         } else {
@@ -21,7 +21,6 @@ public class Solver {
     }
     public int next() {
         int out = Constants.DIR_NONE;
-        double weight = -10000;
         LinkedList<Thread> threadList = new LinkedList<>();
         class ComputeTask implements Runnable {
             private Node node;
@@ -48,6 +47,7 @@ public class Solver {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        double weight = -100000000;
         for (Node node :
                 startMoves) {
             if (weight < node.expectimaxResult) {
